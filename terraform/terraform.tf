@@ -21,7 +21,7 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  name            = "ex-${basename(path.cwd)}"
+  name            = "ex-github-cd"
   cluster_version = "1.31"
   region          = "ap-south-1"
 
@@ -61,6 +61,16 @@ module "eks" {
   access_entries = {
     github_actions = {
       principal_arn = "arn:aws:iam::805395122898:role/github-cd-role"
+      type          = "STANDARD"
+
+      policy_associations = {
+        admin = {
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+          access_scope = {
+            type = "cluster"
+          }
+        }
+      }
     }
   }
 }

@@ -79,7 +79,11 @@ jobs:
       # - id: apply
       #   run: terraform apply -auto-approve -no-color
 
-      - uses: azure/setup-kubectl@v4
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Install Helm
+        uses: azure/setup-helm@v1
 
       - name: Configure Kubernetes client
         uses: silverlyra/setup-aws-eks@v0.1
@@ -90,4 +94,5 @@ jobs:
         run: |
           kubectl get pods
 
-      
+      - name: Deploy to Kubernetes using Helm
+        run: helm upgrade my-app-release my-app/ --set image.tag=${{ steps.meta.outputs.version }} 
