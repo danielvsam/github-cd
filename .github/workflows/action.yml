@@ -98,4 +98,4 @@ jobs:
         run: helm list
         
       - name: Deploy to Kubernetes using Helm
-        run: helm upgrade --install my-app-test-release my-app/ --set image.tag=${{ steps.meta.outputs.version }}
+        run: helm upgrade --install my-app-test-release my-app/ --values my-app/values.yaml --set image.tag=${{ steps.meta.outputs.version }}
