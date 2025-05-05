@@ -12,7 +12,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   env:
-  AWS_REGION: us-west-2
+  AWS_REGION: ap-south-1
 
 jobs:
   build-and-push-image:
