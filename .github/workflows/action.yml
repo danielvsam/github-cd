@@ -94,5 +94,8 @@ jobs:
         run: |
           kubectl get pods
 
+      - name: Helm list releases
+        run: helm list
+        
       - name: Deploy to Kubernetes using Helm
-        run: helm upgrade --install my-app-release my-app/ --set image.tag=${{ steps.meta.outputs.version }}
+        run: helm install my-app-release my-app/ --set image.tag=${{ steps.meta.outputs.version }}
