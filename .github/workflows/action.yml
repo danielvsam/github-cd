@@ -69,14 +69,25 @@ jobs:
           role-to-assume: arn:aws:iam::805395122898:role/github-cd-role
           aws-region: ${{ env.AWS_REGION }}
 
-      - uses: hashicorp/setup-terraform@v3
+      # - uses: hashicorp/setup-terraform@v3
 
-      - run: terraform init
+      # - run: terraform init
 
-      - id: plan
-        run: terraform plan -no-color
+      # - id: plan
+      #   run: terraform plan -no-color
 
-      - id: apply
-        run: terraform apply -auto-approve -no-color
+      # - id: apply
+      #   run: terraform apply -auto-approve -no-color
+
+      - uses: azure/setup-kubectl@v4
+
+      - name: Configure Kubernetes client
+        uses: silverlyra/setup-aws-eks@v0.1
+        with:
+          cluster: ex-github-cd
+
+      - name: Deploy service
+        run: |
+          kubectl get pods
 
       
