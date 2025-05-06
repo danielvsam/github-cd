@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: ghcr.io/danielvsam/github-cd:latest
+        image: "{{ .Values.name }}:{{ .Values.tag }}"
         imagePullPolicy: Always
         ports:
         - containerPort: 80
