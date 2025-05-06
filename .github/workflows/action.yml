@@ -100,9 +100,9 @@ jobs:
       - name: Create kubeconfig file
         run: echo "${{ secrets.KUBECONFIG }}" > ${{ github.workspace }}/kubeconfig
 
-      - name: Deploy service
-        run: |
-          kubectl get pods
+      # - name: Deploy service
+      #   run: |
+      #     kubectl get pods
 
       - name: Deploy to Kubernetes using Helm
         env:
