@@ -53,15 +53,15 @@ jobs:
         run: |
           echo "Meta: ${{ toJson(steps.meta.outputs) }}"
 
-      - name: Build and push Docker image
-        id: push
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          provenance: false
+      # - name: Build and push Docker image
+      #   id: push
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: ${{ steps.meta.outputs.tags }}
+      #     labels: ${{ steps.meta.outputs.labels }}
+      #     provenance: false
       
       # - name: Generate artifact attestation
       #   uses: actions/attest-build-provenance@v2
@@ -107,7 +107,7 @@ jobs:
       - name: Deploy to Kubernetes using Helm
         env:
           KUBECONFIG: ${{ github.workspace }}/kubeconfig
-        run: helm upgrade my-app-release my-app/ --install --namespace default --debug
+        run: helm upgrade my-app-release my-app/ --install --namespace default --debug --values my-app/values.yaml
 
       - name: Helm list releases
         run: helm list
