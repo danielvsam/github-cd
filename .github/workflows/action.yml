@@ -92,10 +92,10 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v1
 
-      - name: Configure Kubernetes client
-        uses: silverlyra/setup-aws-eks@v0.1
-        with:
-          cluster: ex-github-cd
+      # - name: Configure Kubernetes client
+      #   uses: silverlyra/setup-aws-eks@v0.1
+      #   with:
+      #     cluster: ex-github-cd
 
       - name: Create kubeconfig file
         run: echo "${{ secrets.KUBECONFIG }}" > ${{ github.workspace }}/kubeconfig
@@ -107,7 +107,7 @@ jobs:
       - name: Deploy to Kubernetes using Helm
         env:
           KUBECONFIG: ${{ github.workspace }}/kubeconfig
-        run: helm upgrade --install my-app-release my-app/ --values my-app/values.yaml --set image.tag=${{ steps.meta.outputs.version }}
+        run: helm upgrade --install my-app-release my-app/ --set image.tag=${{ steps.meta.outputs.version }} --namespace default
 
       - name: Helm list releases
         run: helm list
