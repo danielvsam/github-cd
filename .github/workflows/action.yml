@@ -107,7 +107,7 @@ jobs:
       - name: Deploy to Kubernetes using Helm
         env:
           KUBECONFIG: ${{ github.workspace }}/kubeconfig
-        run: helm upgrade my-app-release my-app/ --install --set image.tag=${{ steps.meta.outputs.version }} --namespace default --debug
+        run: helm upgrade my-app-release my-app/ --install --namespace default --debug
 
       - name: Helm list releases
         run: helm list
