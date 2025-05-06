@@ -40,6 +40,9 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            # minimal (short sha)
+            type=sha
           # tags: |
           #   type=ref,event=branch
           #   type=ref,event=pr
@@ -48,7 +51,7 @@ jobs:
 
       - name: Print metadata
         run: |
-          echo "Meta: ${{ steps.meta.outputs }}"
+          echo "Meta: ${{ toJson(steps.meta.outputs) }}"
 
       - name: Build and push Docker image
         id: push
