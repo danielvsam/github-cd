@@ -97,11 +97,16 @@ jobs:
         with:
           cluster: ex-github-cd
 
+      - name: Create kubeconfig file
+        run: echo "${{ secrets.KUBECONFIG }}" > ${{ github.workspace }}/kubeconfig
+
       - name: Deploy service
         run: |
           kubectl get pods
 
       - name: Deploy to Kubernetes using Helm
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig
         run: helm upgrade --install my-app-release my-app/ --values my-app/values.yaml --set image.tag=${{ steps.meta.outputs.version }}
 
       - name: Helm list releases
